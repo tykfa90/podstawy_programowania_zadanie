@@ -8,7 +8,7 @@ namespace podstawy_programowania_zadanie
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Zadanie 1: a)");
+            Console.WriteLine("Zadanie 1: b)");
             Console.WriteLine("Podaj podstawę silni: ");
             int liczba = int.Parse(Console.ReadLine());
             Console.WriteLine("Wynik dla silni o podstawie: " + liczba + " to: " + Program.Silnia(liczba));
@@ -17,10 +17,12 @@ namespace podstawy_programowania_zadanie
 
         private static BigInteger Silnia(int liczba)
         {
-            if (liczba == 0)
-                return 1;
-            else
-                return liczba * Silnia(liczba - 1);
+            int wynik = 1;
+            for (int i = 1; i <= liczba; i++)
+            {
+                wynik *= i;
+            }
+            return wynik;
         }
     }
 }
