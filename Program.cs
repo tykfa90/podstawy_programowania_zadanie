@@ -1,62 +1,79 @@
 ﻿using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace podstawy_programowania_zadanie
 {
     class Program
     {
+        private static double total;
+        private static string order;
+
         static void Main(string[] args)
         {
-            Console.WriteLine("BANKOMAT \n");
-            Console.WriteLine("Wybierz operację:\n" +
-                "1. Wypłata gotówki.\n" +
-                "2. Sprawdzenie stanu konta.\n" +
-                "3. Wyjście.");
-            string action = Console.ReadLine();
-            switch (action)
-            {
-                case "1":
-                    Program.Wyplata();
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private static void Wyplata()
-        {
-            int accountBalance = 21975;
-            Console.WriteLine("Stan konta wynosi: " + accountBalance + " Proszę podać kwotę do wypłaty: ");
             bool running = true;
             while (running)
             {
-                string userAmount = Console.ReadLine();
-                bool check = int.TryParse(userAmount, out int amount);
-                if (check == true && amount != 0 && amount % 10 == 0 && amount <= accountBalance)
+                Console.WriteLine("Automat Z Napojami\n\n" +
+                "Dostępne produkty:\n" +
+                "1. Kawa      - 1,50 zł\n" +
+                "2. Hebrata   - 1,00 zł\n" +
+                "3. Czekolada - 2,00 zł");
+                bool check = int.TryParse(Console.ReadLine(), out int userInput);
+                if (check)
                 {
-                    int[] bills = {500,200,100,50,20,10};
-                    foreach (int bill in bills)
+                    switch (userInput)
                     {
-                        int count = amount / bill;
-                        amount -= (count*bill);
-                        if (count > 0)
-                        {
-                        Console.WriteLine("Wypłacono " + count + " banknotów o nominale " + bill);
-                        }
+                        case 1:
+                            Console.WriteLine("Wybrano napój: Kawa Koszt: 1,50 zł.");
+                            order += "Kawa +1,50 zł ";
+                            total += 1.50;
+                            break;
+                        case 2:
+                            Console.WriteLine("Wybrano napój: Herbata Koszt: 1,00 zł.");
+                            order += "Herbata +1,00 zł ";
+                            total += 1.00;
+                            break;
+                        case 3:
+                            Console.WriteLine("Wybrano napój: Czekolada Koszt: 2,00 zł.");
+                            order += "Czekolada +2,00 zł ";
+                            total += 2.00;
+                            break;
+                        default:
+                            break;
+                    }
+                    Console.WriteLine(order);
+                    Console.WriteLine("Doliczyć dodakowy cukier? Cena: 0,50 zł.\n" +
+                        "1. TAK\n" +
+                        "2. NIE");
+                    int choice = int.Parse(Console.ReadLine());
+                    if (choice == 1)
+                    {
+                        order += " + dodatkowy cukier";
+                        total += 0.50;
+                        Console.WriteLine(order);
+                    }
+                    Console.WriteLine("Potwierdź zamówienie:\n" +
+                        "1. OK\n" +
+                        "2. Wróć.");
+                    int confirm = int.Parse(Console.ReadLine());
+                    if (confirm == 1)
+                    {
+                        Console.WriteLine("Twoje zamówienie: " + order + "\n" +
+                            "OPŁACONO! Proszę odebrać napój. UWAGA, GORĄCE!");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        continue;
                     }
                     running = false;
                 }
                 else
                 {
-                    Console.WriteLine("\nProszę wprowadzić wielokrotność kwoty 10 zł. Proszę ponownie wybrać kwotę do wypłaty: ");
-                    continue;
+                    Console.WriteLine("Proszę wybrać jeszcze raz.");
                 }
-                Console.ReadLine();
             }
         }
     }
