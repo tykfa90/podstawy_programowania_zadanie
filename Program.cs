@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -8,21 +9,33 @@ namespace podstawy_programowania_zadanie
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Zadanie 1: b)");
-            Console.WriteLine("Podaj podstawę silni: ");
-            int liczba = int.Parse(Console.ReadLine());
-            Console.WriteLine("Wynik dla silni o podstawie: " + liczba + " to: " + Program.Silnia(liczba));
+            BigInteger[] tablica = new BigInteger[100];
+            Program.FibonacciFill(tablica);
+
+            Console.WriteLine("Zadanie 2");
+            Console.WriteLine("Utworzoną tablicę wypełniono liczbami: ");
+            tablica.ToList().ForEach(i => Console.Write(i.ToString() + " ; "));
             Console.ReadLine();
         }
 
-        private static BigInteger Silnia(int liczba)
+        private static BigInteger[] FibonacciFill(BigInteger[] tablica)
         {
-            int wynik = 1;
-            for (int i = 1; i <= liczba; i++)
+            for (long i = 0; i <= 99; i++)
             {
-                wynik *= i;
-            }
-            return wynik;
+                if (i == 0)
+                {
+                    tablica[i] = 0;
+                }
+                else if (i == 1)
+                {
+                    tablica[i] = 1;
+                }
+                else
+                {
+                    tablica[i] = tablica[i - 2] + tablica[i - 1];
+                }
+            }            
+            return tablica;
         }
     }
 }
