@@ -9,32 +9,38 @@ namespace podstawy_programowania_zadanie
     {
         static void Main(string[] args)
         {
-            BigInteger[] tablica = new BigInteger[100];
-            Program.FibonacciFill(tablica);
+            int[,] tablica = new int[10,10];
+            Program.TwoDimTableFill(tablica);
 
-            Console.WriteLine("Zadanie 2");
-            Console.WriteLine("Utworzoną tablicę wypełniono liczbami: ");
-            tablica.ToList().ForEach(i => Console.Write(i.ToString() + " ; "));
+            Console.WriteLine("Zadanie 3");
+            Console.WriteLine("Utworzona tablica ma postać: ");
+            Program.ArrayPrinter(tablica);
             Console.ReadLine();
         }
 
-        private static BigInteger[] FibonacciFill(BigInteger[] tablica)
+        private static void ArrayPrinter(int[,] tablica)
         {
-            for (long i = 0; i <= 99; i++)
+            for (int i = 0; i < tablica.GetLength(0); i++)
             {
-                if (i == 0)
+                for (int j = 0; j < tablica.GetLength(1); j++)
                 {
-                    tablica[i] = 0;
+                    Console.Write(tablica[i, j] + "\t");
                 }
-                else if (i == 1)
+                Console.WriteLine();
+            }
+        }
+
+        private static int[,] TwoDimTableFill(int[,] tablica)
+        {
+            int licznik = 2;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
                 {
-                    tablica[i] = 1;
+                    tablica[i, j] = licznik;
+                    licznik += 2;
                 }
-                else
-                {
-                    tablica[i] = tablica[i - 2] + tablica[i - 1];
-                }
-            }            
+            }
             return tablica;
         }
     }
